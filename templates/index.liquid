@@ -7,42 +7,27 @@
     - http://docs.shopify.com/themes/liquid-variables/global
 {% endcomment %}
 
-<h2>{{ 'homepage.sections.frontpage_title' | t }}</h2>
-
 {% comment %}
   Use class grid-uniform to have evenly sized columns clear
   each other properly at each breakpoint.
 {% endcomment %}
-<div class="grid-uniform">
+<div class="grid--full">
 
-  {% comment %}
-    Loop through products in your Frontpage collection.
-    This collection is created by default, but you must add products to it.
-  {% endcomment %}
-  {% for product in collections.frontpage.products limit:4 %}
-
-    {% comment %}
-      Change the grid item width by using classes from the grid in
-      the grid_item_width variable.
-
-      Example:
-        - {% assign grid_item_width = 'large--one-third medium--one-half' %}
-    {% endcomment %}
-    {% assign grid_item_width = 'large--one-quarter medium--one-half' %}
-    {% include 'product-grid-item' %}
-
-  {% else %}
-    {% comment %}
-      For onboarding new users to your theme, we add some default products and onboarding tutorials to help populate their store
-    {% endcomment %}
-    {% unless emptyState %}
-      {{ 'theme-onboarding.css' | global_asset_url | stylesheet_tag }}
-      {% assign emptyState = true %}
-    {% endunless %}
-
-    {% include 'onboarding-featured-products' %}
-
-  {% endfor %}
+  <div class="grid__item large--one-third">
+    <div class="homepage-callout" style="background-image: url(https://cdn.shopify.com/s/files/1/1154/8424/files/Layer_3.png?6063876595142387345)">
+        <h1>Test</h1>
+    </div>
+  </div>
+  <div class="grid__item large--one-third">
+      <div class="homepage-callout" style="background-image: url(https://cdn.shopify.com/s/files/1/1154/8424/files/stephengovel_WhiteHorse186.png?6063876595142387345)">
+        <h1>Test</h1>
+      </div>
+  </div>
+  <div class="grid__item large--one-third">
+      <div class="homepage-callout" style="background-image: url(https://cdn.shopify.com/s/files/1/1154/8424/files/99wine_case_image.png?6063876595142387345)">
+        <h1>Test</h1>
+      </div>
+  </div>
 
 </div>
 
@@ -161,3 +146,15 @@
 
   {% endfor %}
 </div>
+
+<script>
+
+    var w = $('.homepage-callout').width();
+    $('.homepage-callout').css('height', w);
+
+    $( window ).resize(function() {
+        var w = $('.homepage-callout').width();
+        $('.homepage-callout').css('height', w);
+    });
+
+</script>
