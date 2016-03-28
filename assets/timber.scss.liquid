@@ -144,10 +144,10 @@ $zindexDrawer: 10;
 
 /*================ Typography ================*/
 
-$headerFontStack: 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$headerFontStack: 'TradeGothic', sans-serif;
 $headerFontWeight: 700;
 
-$bodyFontStack: 'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+$bodyFontStack: 'Roboto Slab', serif;
 $baseFontSize: 14px; // Henceforth known as 1em
 
 @font-face {
@@ -721,10 +721,11 @@ body {
   @include clearfix();
   max-width: $siteWidth;
   margin: 0 auto;
-  padding: 0 ($gutter / 2);
+  padding: 10px ($gutter / 2);
+  height: 100%;
 
   @include at-query ($min, $small) {
-    padding: 0 $gutter;
+    padding: 10px $gutter;
   }
 }
 
@@ -808,23 +809,38 @@ h1, h2, h3, h4, h5, h6 {
 
 /*================ Use em() Sass function to declare font-size ================*/
 h1 {
-  font-size: em(36px);
+  font-family: $headerFontStack;
+  font-size: em(72px);
+  line-height: 1.1em;
+  text-transform: uppercase;
 }
 
 h2 {
-  font-size: em(28px);
+  font-family: $headerFontStack;
+  font-size: em(48px);
+  line-height: 1.1em;
+  text-transform: uppercase;
 }
 
 h3 {
-  font-size: em(22px);
+  font-family: $headerFontStack;
+  font-size: em(36px);
+  line-height: 1.1em;
+  text-transform: uppercase;
 }
 
 h4 {
-  font-size: em(20px);
+  font-family: $bodyFontStack;
+  font-size: em(36px);
+  line-height: 1.1em;
+  letter-spacing: 0.025em;
 }
 
 h5 {
-  font-size: em(16px);
+  font-family: $bodyFontStack;
+  font-size: em(22px);
+  line-height: 1.1em;
+  letter-spacing: 0.025em;
 }
 
 h6 {
@@ -1762,8 +1778,20 @@ label.error {
 /*============================================================================
   #Site Header
 ==============================================================================*/
+.site-header-cover {
+    // position: absolute;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0,0.5);
+}
+
 .site-header {
-  padding: ($gutter / 2) 0;
+  // padding: ($gutter / 2) 0;
+  background-image: url(https://cdn.shopify.com/s/files/1/1154/8424/files/stephengovel_WhiteHorse196.png?14336842499233671706);
+  background-repeat: no-repeat;
+  background-size: cover;
+  // min-height: 100vh;
+  position: relative;
 
   .grid--table {
     display: table;
@@ -1814,7 +1842,7 @@ label.error {
 .site-header__search {
   display: inline-block;
   max-width: 400px;
-  margin-top: $gutter / 2;
+  // margin-top: $gutter / 2;
   width: 100%;
 }
 
@@ -1837,8 +1865,10 @@ label.error {
 .site-nav {
   font-size: em(16px);
   cursor: default;
-  margin: 0 0 0 (-$gutter / 2);
+  margin: 0;
   position: relative;
+  width: 100%;
+  padding-top: 30px;
 
   li {
     margin: 0;
@@ -1848,23 +1878,41 @@ label.error {
   > li {
     position: relative;
     display: inline-block;
+
+    &:hover {
+        background: white;
+
+         a {
+            color: black;
+         }
+    }
+  }
+
+  hr {
+    position: absolute;
+    margin: 0;
+    border-top: 1px solid white;
+    border-bottom: 2px solid white;
+    height: 5px;
   }
 }
 
 
 .site-nav-left {
+  margin-left: -15px;
+
   hr {
-    position: absolute;
     left: -500px;
-    right: 0;
+    right: 40px;
   }
 }
 
 .site-nav-right {
+  margin-left: 15px;
+
   hr {
-    position: absolute;
     right: -500px;
-    left: 0;
+    left: 40px;
   }
 }
 
@@ -1880,21 +1928,27 @@ label.error {
 .site-nav__link {
   display: block;
   text-decoration: none;
-  padding: $gutter / 2;
+  margin: $gutter / 3;
   white-space: nowrap;
-  color: $colorNavText;
+  color: white;
+  text-transform: uppercase;
+  font-family: $headerFontStack;
+  font-size: 20px;
+  border-bottom: 2px solid transparent;
+  line-height: 1em;
 
   &:hover,
   &:active,
   &:focus {
-    color: darken($colorNavText, 15%);
+    color: black;
+    border-bottom: 2px solid #fff200;
   }
 
   .icon-arrow-down {
     position: relative;
     top: -2px;
     font-size: 10px;
-    padding-left: $gutter / 4;
+
   }
 
   .site-nav--active > & {
@@ -1913,6 +1967,9 @@ label.error {
   left: 0;
   margin: 0;
   z-index: $zindexNavDropdowns;
+  padding: 10px 0;
+  background: white;
+  min-width: 142px;
 
   .supports-no-touch .site-nav--has-dropdown:hover &,
   .site-nav--has-dropdown.nav-hover &,
@@ -1921,12 +1978,14 @@ label.error {
   }
 
   a {
-    background-color: $colorNav;
+    background-color: white;
+    float: left;
+    font-size: 14px;
 
     &:hover,
     &:active,
     &:focus {
-      background-color: darken($colorNav, 10%);
+      // background-color: darken($colorNav, 10%);
     }
   }
 }
@@ -2558,3 +2617,17 @@ label.error {
 }
 
 {% endif %} // settings.ajax_cart_method
+
+.header-title {
+    font-family: $headerFontStack;
+    text-align: center;
+    padding: 150px 0;
+
+    h1 {
+        color: white;
+    }
+}
+
+.header-grid {
+
+}

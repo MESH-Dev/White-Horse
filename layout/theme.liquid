@@ -40,6 +40,7 @@
   {{ 'fonts.css' | asset_url | stylesheet_tag }}
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
 
   {% comment %}
     If you store has customer accounts disabled, you can remove the following JS file
@@ -151,141 +152,153 @@
     </div>
   {% endif %}
   <div id="PageContainer" class="is-moved-by-drawer">
+
     <header class="site-header" role="banner">
-      <div class="wrapper">
+      <div class="site-header-cover">
 
-        <div class="grid--full grid--table">
-          <div class="grid__item large--one-half">
-            {% comment %}
-              Use the uploaded logo from theme settings if enabled.
-              Site name gets precedence with H1 tag on homepage, div on other pages.
-            {% endcomment %}
+          <div class="wrapper">
 
-            <div class="site-header__search">
-              <div class="search-icon">
-                <a href="/search"><i class="fa fa-search"></i></a>
-              </div>
-            </div>
-
-          </div>
-          <div class="grid__item large--one-half large--text-right medium-down--hide">
-            {% comment %}
-              Show number of items in the cart and total cost in the /cart link
-
-              Ajax Cart Notes:
-                - #cartCount updates the total number of items in the cart
-                - #cartCost updates the total cost of the cart
-                - Documentation:  http://shopify.com/timber#ajax-cart
-            {% endcomment %}
-            <div>
-              <a href="/cart" class="site-header__cart-toggle js-drawer-open-right" aria-controls="CartDrawer" aria-expanded="false">
-                <span class="icon icon-cart" aria-hidden="true"></span>
-                {{ 'layout.cart.title' | t }}
-                (<span id="CartCount">{{ cart.item_count }}</span>
-                {{ 'layout.cart.items_count' | t: count: cart.item_count }}
-                <span id="CartCost">{{ cart.total_price | money }}</span>)
-              </a>
-            </div>
-
-            {% comment %}
-              If customer accounts are enabled, provide login and create account links
-            {% endcomment %}
-            {% if shop.customer_accounts_enabled %}
-              <div>
-                {% if customer %}
-                  {% if customer.first_name != blank %}
-                    {% capture first_name %}<a href="/account">{{ customer.first_name }}</a>{% endcapture %}
-                    {{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}
-                  {% else %}
-                    <a href="/account">{{ 'layout.customer.account' | t }}</a>
-                  {% endif %}
-                  | {{ 'layout.customer.log_out' | t | customer_logout_link }}
-                {% else %}
-                  {{ 'layout.customer.log_in' | t | customer_login_link }}
-                  | {{ 'layout.customer.create_account' | t | customer_register_link }}
-                {% endif %}
-              </div>
-            {% endif %}
-
-          </div>
-        </div>
-
-        <div class="grid--full">
-
-          <div class="grid__item large--five-twelfths">
-
-            <ul class="site-nav site-nav-left">
-              {% for link in linklists.main-menu.links %}
+            <div class="grid--full grid--table">
+              <div class="grid__item large--one-half">
                 {% comment %}
-                  Create a dropdown menu by naming a linklist the same as a link in the parent nav
-
-                  More info on dropdowns:
-                    - http://docs.shopify.com/manual/your-website/navigation/create-drop-down-menu
+                  Use the uploaded logo from theme settings if enabled.
+                  Site name gets precedence with H1 tag on homepage, div on other pages.
                 {% endcomment %}
-                {% assign child_list_handle = link.title | handleize %}
-                {% if linklists[child_list_handle].links != blank %}
-                  <li class="site-nav--has-dropdown{% if link.active %} site-nav--active{% endif %}" aria-haspopup="true">
-                    <a href="{{ link.url }}" class="site-nav__link">
-                      {{ link.title }}
-                      <span class="icon icon-arrow-down" aria-hidden="true"></span>
-                    </a>
-                    <ul class="site-nav__dropdown">
-                      {% for childlink in linklists[child_list_handle].links %}
-                        <li{% if childlink.active %} class="site-nav--active"{% endif %}>
-                          <a href="{{ childlink.url }}" class="site-nav__link">{{ childlink.title | escape }}</a>
-                        </li>
-                      {% endfor %}
-                    </ul>
-                  </li>
-                {% else %}
-                  <li {% if link.active %}class="site-nav--active"{% endif %}>
-                    <a href="{{ link.url }}" class="site-nav__link">{{ link.title }}</a>
-                  </li>
-                {% endif %}
-              {% endfor %}
 
-              <hr>
-            </ul>
+                <div class="site-header__search">
+                  <div class="search-icon">
+                    <a href="/search"><i class="fa fa-search"></i></a>
+                  </div>
+                </div>
 
-          </div>
-
-          <div class="grid__item large--one-sixth">
-            {% if template == 'index' %}
-              <h1 class="site-header__logo large--left" itemscope itemtype="http://schema.org/Organization">
-            {% else %}
-              <div class="h1 site-header__logo large--left" itemscope itemtype="http://schema.org/Organization">
-            {% endif %}
-              {% if settings.logo_use_image %}
-                <a href="/" itemprop="url" class="site-header__logo-link">
-                  <img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" itemprop="logo">
-                </a>
-              {% else %}
-                <a href="/" itemprop="url">{{ shop.name }}</a>
-              {% endif %}
-            {% if template == 'index' %}
-              </h1>
-            {% else %}
               </div>
-            {% endif %}
+              <div class="grid__item large--one-half large--text-right medium-down--hide">
+                {% comment %}
+                  Show number of items in the cart and total cost in the /cart link
+
+                  Ajax Cart Notes:
+                    - #cartCount updates the total number of items in the cart
+                    - #cartCost updates the total cost of the cart
+                    - Documentation:  http://shopify.com/timber#ajax-cart
+                {% endcomment %}
+                <div>
+                  <a href="/cart" class="site-header__cart-toggle js-drawer-open-right" aria-controls="CartDrawer" aria-expanded="false">
+                    <span class="icon icon-cart" aria-hidden="true"></span>
+                    {{ 'layout.cart.title' | t }}
+                    (<span id="CartCount">{{ cart.item_count }}</span>
+                    {{ 'layout.cart.items_count' | t: count: cart.item_count }}
+                    <span id="CartCost">{{ cart.total_price | money }}</span>)
+                  </a>
+                </div>
+
+                {% comment %}
+                  If customer accounts are enabled, provide login and create account links
+                {% endcomment %}
+                {% if shop.customer_accounts_enabled %}
+                  <div>
+                    {% if customer %}
+                      {% if customer.first_name != blank %}
+                        {% capture first_name %}<a href="/account">{{ customer.first_name }}</a>{% endcapture %}
+                        {{ 'layout.customer.logged_in_as_html' | t: first_name: first_name }}
+                      {% else %}
+                        <a href="/account">{{ 'layout.customer.account' | t }}</a>
+                      {% endif %}
+                      | {{ 'layout.customer.log_out' | t | customer_logout_link }}
+                    {% else %}
+                      {{ 'layout.customer.log_in' | t | customer_login_link }}
+                      | {{ 'layout.customer.create_account' | t | customer_register_link }}
+                    {% endif %}
+                  </div>
+                {% endif %}
+
+              </div>
+            </div>
+
+            <div class="grid--full">
+
+              <div class="grid__item large--five-twelfths">
+
+                <ul class="site-nav site-nav-left">
+                  {% for link in linklists.main-menu.links %}
+                    {% comment %}
+                      Create a dropdown menu by naming a linklist the same as a link in the parent nav
+
+                      More info on dropdowns:
+                        - http://docs.shopify.com/manual/your-website/navigation/create-drop-down-menu
+                    {% endcomment %}
+                    {% assign child_list_handle = link.title | handleize %}
+                    {% if linklists[child_list_handle].links != blank %}
+                      <li class="site-nav--has-dropdown{% if link.active %} site-nav--active{% endif %}" aria-haspopup="true">
+                        <a href="{{ link.url }}" class="site-nav__link">
+                          {{ link.title }}
+                          <span class="icon icon-arrow-down" aria-hidden="true"></span>
+                        </a>
+                        <ul class="site-nav__dropdown">
+                          {% for childlink in linklists[child_list_handle].links %}
+                            <li{% if childlink.active %} class="site-nav--active"{% endif %}>
+                              <a href="{{ childlink.url }}" class="site-nav__link">{{ childlink.title | escape }}</a>
+                            </li>
+                          {% endfor %}
+                        </ul>
+                      </li>
+                    {% else %}
+                      <li {% if link.active %}class="site-nav--active"{% endif %}>
+                        <a href="{{ link.url }}" class="site-nav__link">{{ link.title }}</a>
+                      </li>
+                    {% endif %}
+                  {% endfor %}
+
+                  <hr>
+                </ul>
+
+              </div>
+
+              <div class="grid__item large--one-sixth">
+                {% if template == 'index' %}
+                  <h1 class="site-header__logo large--left" itemscope itemtype="http://schema.org/Organization">
+                {% else %}
+                  <div class="h1 site-header__logo large--left" itemscope itemtype="http://schema.org/Organization">
+                {% endif %}
+                  {% if settings.logo_use_image %}
+                    <a href="/" itemprop="url" class="site-header__logo-link">
+                      <img src="{{ 'logo.png' | asset_url }}" alt="{{ shop.name }}" itemprop="logo">
+                    </a>
+                  {% else %}
+                    <a href="/" itemprop="url">{{ shop.name }}</a>
+                  {% endif %}
+                {% if template == 'index' %}
+                  </h1>
+                {% else %}
+                  </div>
+                {% endif %}
+              </div>
+
+              <div class="grid__item large--five-twelfths">
+
+                <ul class="site-nav text-right site-nav-right">
+
+                  <li><a href="/wine" class="site-nav__link">Wine</a></li>
+                  <li><a href="/spirits" class="site-nav__link">Spirits</a></li>
+                  <li><a href="/beer" class="site-nav__link">Beer</a></li>
+                  <li><a href="/housewares" class="site-nav__link">Housewares</a></li>
+                  <li><a href="/food" class="site-nav__link">Food</a></li>
+
+                  <hr>
+                </ul>
+
+              </div>
+
+            </div>
+
+            <div class="grid__full">
+                <div class="grid__item large--one-half push--large--one-quarter">
+                    <div class="header-title">
+                        <h1>Next Generation Liquor Store</h1>
+                    </div>
+                </div>
+            </div>
+
           </div>
-
-          <div class="grid__item large--five-twelfths">
-
-            <ul class="site-nav text-right site-nav-right">
-
-              <li><a href="/wine" class="site-nav__link">Wine</a></li>
-              <li><a href="/spirits" class="site-nav__link">Spirits</a></li>
-              <li><a href="/beer" class="site-nav__link">Beer</a></li>
-              <li><a href="/housewares" class="site-nav__link">Housewares</a></li>
-              <li><a href="/food" class="site-nav__link">Food</a></li>
-
-              <hr>
-            </ul>
-
-          </div>
-
-        </div>
-
       </div>
     </header>
 

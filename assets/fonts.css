@@ -1,6 +1,8 @@
 @font-face {
-  font-family: 'Graublau Web';
+  font-family: TradeGothic;
   src:  url('TradeGothicLTStd-Bold.eot?') format('eot'),
         url('TradeGothicLTStd-Bold.woff') format('woff'),
-        url('TradeGothicLTStd-Bold.ttf') format('truetype'),
+        url('TradeGothicLTStd-Bold.woff2') format('woff2'),
+        url('TradeGothicLTStd-Bold.ttf') format('ttf'),
+        url('TradeGothicLTStd-Bold.ttf') format('truetype');
 }
