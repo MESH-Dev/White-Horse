@@ -251,7 +251,7 @@
       "account": "Account",
       "logged_in_as_html": "Logged in as {{ first_name }}",
       "log_out": "Log out",
-      "log_in": "Log in",
+      "log_in": "Sign in",
       "create_account": "Create account"
     },
     "footer": {
